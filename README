@@ -302,47 +302,46 @@ SWITCHES
         line switches
 
 QUOTING SHELL METACHARACTERS
-        When dsh is used in the form *dsh [options] command*, there is an
-        issue with shell metacharacters. That is, characters in *command*
-        are interpreted by the local shell before they are passed to dsh.
-        For example, *dsh -w 10.10.10.1, 10.10.10.2 find / -name bash >
-        bash.find* will be interpreted as 'run dsh -w 10.10.10.1, 10.10.10.2
-        find / -name bash and place the results of this program in the file
-        bash.find on the local computer'. This does not run find / -name
-        bash on 10.10.10.1 and 10.10.10.2 and place the results of find in
-        files named bash.find on the remote computers. To do that you would
-        need to type *dsh -w 10.10.10.1, 10.10.10.2 find / -name bash '>'
-        bash.find* to avoid interpretation of > by the local shell. Another
-        way to avoid local metacharacter interpretation is to use the -e
-        switch: *dsh -w 10.10.10.1, 10.10.10.2 -e 'find / -name bash >
-        bash.find'*. I highly recommend using the -e switch to execute
-        commands or running dsh in interactive mode because most modern
-        shells have many metacharacters and quoting these can be tricky even
-        if you do recognize all of them.
+    When dsh is used in the form *dsh [options] command*, there is an issue
+    with shell metacharacters. That is, characters in *command* are
+    interpreted by the local shell before they are passed to dsh. For
+    example, *dsh -w 10.10.10.1, 10.10.10.2 find / -name bash > bash.find*
+    will be interpreted as 'run dsh -w 10.10.10.1, 10.10.10.2 find / -name
+    bash and place the results of this program in the file bash.find on the
+    local computer'. This does not run find / -name bash on 10.10.10.1 and
+    10.10.10.2 and place the results of find in files named bash.find on the
+    remote computers. To do that you would need to type *dsh -w 10.10.10.1,
+    10.10.10.2 find / -name bash '>' bash.find* to avoid interpretation of >
+    by the local shell. Another way to avoid local metacharacter
+    interpretation is to use the -e switch: *dsh -w 10.10.10.1, 10.10.10.2
+    -e 'find / -name bash > bash.find'*. I highly recommend using the -e
+    switch to execute commands or running dsh in interactive mode because
+    most modern shells have many metacharacters and quoting these can be
+    tricky even if you do recognize all of them.
 
 EXIT CODES
-        If dsh exits cleanly (that is, if dsh is allowed to call exit
-        itself), the exit code of dsh will either be a 0 or a 1. 0 indicates
-        that dsh at least ran the command "rsh (node) command" for every
-        non-duplicate node. Note that an exit code of 0 does not mean that
-        every rsh was successful nor does it mean that the command exited
-        with a code of 0 on the remote computer :-\ . The way dsh executes
-        rsh commands doesn't lend itself to capturing their exit codes. An
-        exit code of 1 indicates that dsh did not attempt to run the command
-        on any remote computers because of an error.
+    If dsh exits cleanly (that is, if dsh is allowed to call exit itself),
+    the exit code of dsh will either be a 0 or a 1. 0 indicates that dsh at
+    least ran the command "rsh (node) command" for every non-duplicate node.
+    Note that an exit code of 0 does not mean that every rsh was successful
+    nor does it mean that the command exited with a code of 0 on the remote
+    computer :-\ . The way dsh executes rsh commands doesn't lend itself to
+    capturing their exit codes. An exit code of 1 indicates that dsh did not
+    attempt to run the command on any remote computers because of an error.
 
 WEBSITE
-        http://dsh.sourceforge.net
+    http://dsh.sourceforge.net
 
 AUTHORS
-        dsh was originally written by Jason Rappleye at the Center for
-        Computational Research at the University at Buffalo. Version 2.0 was
-        written by Matthew T. Piotrowski at the Center for Computational
-        Research. Thanks to dale@bewley.net for his contributions to the
-        early stages of version 2.0. This manpage was written by Matthew T.
-        Piotrowski, with help from the OpenSSH manpage (ssh.1), version
-        1.99, which was used as a reference.
+    dsh was originally written by Jason Rappleye <rappleye@ccr.buffalo.edu>
+    at the Center for Computational Research at the University at Buffalo.
+    Version 2.0 was written by Matthew T. Piotrowski
+    <mtp22@user.sourceforge.net> at the Center for Computational Research.
+    Thanks to dale@bewley.net for his contributions to the early stages of
+    version 2.0. This manpage was written by Matthew T. Piotrowski, with
+    help from the OpenSSH manpage (ssh.1), version 1.99, which was used as a
+    reference.
 
 SEE ALSO
-        *rsh(1)*, *gethostbyname(3)*, *ssh(1)*
+    *rsh(1)*, *gethostbyname(3)*, *ssh(1)*
 
