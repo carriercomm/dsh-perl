@@ -359,7 +359,7 @@ copy("./dsh", "$prefix/bin/dsh")
           "Installation failed.\\n";
 chmod(0755, "$prefix/bin/dsh")
    or die "\$0: couldn't change the permissions of \`./dsh\`: \$!\\n" .
-          "Installation failed.\\n";
+          "Installation failed.\\n\\n";
 print "dsh executable installed\\n";
 
 mkpath("$man_prefix/man1", 1, 0755);
@@ -372,11 +372,11 @@ unless ($dont_create_node_groups_dir) {
     mkpath("$beowulf_root/node_groups", 1, 0755);
     unless (-e "$beowulf_root/node_groups") {
 	die "\$0: couldn't create directory \'$beowulf_root/node_groups\': " .
-            "\$!\\nInstallation failed.\\n";
+            "\$!\\nInstallation failed.\\n\\n";
     }
 }
 
-print "Installation complete.\\n";
+print "Installation complete.\\n\\n";
 exit;
 INSTALL
 
