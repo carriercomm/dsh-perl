@@ -353,6 +353,8 @@ is run in a non-interactive script.
 Displays a message containing a brief description of the command line
 switches
 
+=back
+
 =head1 QUOTING SHELL METACHARACTERS
 
 When B<dsh> is used in the form I<dsh [options] command>,
@@ -392,12 +394,12 @@ http://dsh.sourceforge.net
 
 =head1 AUTHORS
 
-B<dsh> was originally written by Jason Rappleye at the Center for
-Computational Research at the University at Buffalo.  Version 2.0 was
-written by Matthew T. Piotrowski at the Center for Computational
-Research.  Thanks to dale@bewley.net for his contributions to the
-early stages of version 2.0.  This manpage was written by Matthew
-T. Piotrowski, with help from the OpenSSH manpage (ssh.1), version
+B<dsh> was originally written by Jason Rappleye <rappleye@ccr.buffalo.edu>
+at the Center for Computational Research at the University at Buffalo. Version 
+2.0 was written by Matthew T. Piotrowski <mtp22@user.sourceforge.net> at the
+Center for Computational Research.  Thanks to dale@bewley.net for his 
+contributions to the early stages of version 2.0.  This manpage was written by 
+Matthew T. Piotrowski, with help from the OpenSSH manpage (ssh.1), version
 1.99, which was used as a reference.
 
 =head1 SEE ALSO
