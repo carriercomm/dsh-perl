@@ -295,6 +295,11 @@ sub check_that_we_can_rsh_to_nodes {
 	}
 	$current_node_index++;
     }
+    # exit if there are no nodes to work with
+    if (@nodes == 0) {
+	print STDERR "$0: Can't reach any nodes. Exiting...\n";
+	exit(1);
+    }
 }
 
 sub we_can_rsh_to {
@@ -414,19 +419,25 @@ INTERACTIVE_DSH
 
 sub run_cmd_in_parallel {
   my $total_number_of_nodes = @nodes;
-  # number of nodes to rsh to in parallel; default is the total number of nodes
-  $fanout = $total_number_of_nodes unless defined($fanout);
-  if ($fanout < 1) {
-     print STDERR "$0: $fanout is not a valid fanout value:\n";
-     print STDERR "$0: using closest valid fanout value (1)\n";
-     $fanout = 1;
+  # number of nodes to rsh to in parallel
+  if (defined($fanout)) {
+      # check the fanout value specified by the user
+      if ($fanout < 1) {
+	 print STDERR "$0: $fanout is not a valid fanout value:\n";
+	 print STDERR "$0: using closest valid fanout value (1)\n";
+	 $fanout = 1;
+      }
+      if ($fanout > $total_number_of_nodes) {
+	 print STDERR "$0: the fanout value specified ($fanout) is larger " .
+		      "than the number of nodes:\n";
+	 print STDERR "$0: using closest valid fanout value " .
+		      "($total_number_of_nodes)\n";
+	 $fanout = $total_number_of_nodes;
+      }
   }
-  if ($fanout > $total_number_of_nodes) {
-     print STDERR "$0: the fanout value specified ($fanout) is larger " .
-	          "than the number of nodes:\n";
-     print STDERR "$0: using closest valid fanout value " .
-	          "($total_number_of_nodes)\n";
-     $fanout = $total_number_of_nodes;
+  else {
+      # default is the total number of nodes
+      $fanout = $total_number_of_nodes;
   }
   print "executing $cmd\n";
   # flush STDOUT before forking to avoid duplicate output when STDOUT is
