@@ -1,6 +1,10 @@
 ###############################################################################
 # pod (Perl's documentation language)
 #
+# to compile into a manpage I use:
+# pod2man dsh.pod --section=1 --release='dsh manpage' 
+# --center='System Reference Manual' > dsh.1
+#
 # Author: Matthew T. Piotrowski <mtp22@users.sourceforge.net>
 # Copyright (c) 2001 Matthew T. Piotrowski <mtp22@users.sourceforge.net>, 
 #                    All rights reserved
