@@ -3,14 +3,16 @@ I. REQUIRED SOFTWARE
 Perl, version 5.005_03 or later.  The latest version of Perl can be found at
 http://www.perl.com/CPAN/src/stable.tar.gz
 
-Term-ReadLine-Gnu Perl module, version 1.08 or later.  This module is not part
-of the standard distribution of Perl, so you will probably need to install this;
-see below for details.  Term-ReadLine-Gnu can be found on the dsh website
-(http://dsh.sourceforge.net).  The newest version of Term-ReadLine-Gnu can be 
-found at http://www.perl.com/CPAN-local/modules/by-module/Term/
-
 Properly configured rsh (see CONFIGURING RSH below) or ssh (see CONFIGURING SSH
 below).  ssh can be found at http://www.openssh.org
+
+(Optional) Term-ReadLine-Gnu Perl module, version 1.08 or later.  This module 
+is not part of the standard distribution of Perl, so you will probably need to 
+install this if you'd like to include this functionality in dsh (see the README
+file for information about interactive dsh).  Term-ReadLine-Gnu can be found on
+the dsh website (http://dsh.sourceforge.net).  The newest version of 
+Term-ReadLine-Gnu can be found at 
+http://www.perl.com/CPAN-local/modules/by-module/Term/
 
 II. TERM-READLINE-GNU INSTALLTION
 
@@ -21,6 +23,7 @@ tar -xvf Term-ReadLine-Gnu-x.xx.tar
 cd Term-ReadLine-Gnu-x.xx
 perl Makefile.PL
 make
+su
 make install
 
 For a more detailed description of installing the Term-Readline-Gnu Perl module,
@@ -37,6 +40,7 @@ III. DSH INSTALLATION
 Quick:
 
 perl configure
+su
 ./install
 
 A number of configuration options are available. A description of each option
@@ -55,8 +59,8 @@ commands by itself; instead the inetd server waits for the command and calls
 the rshd server when needed. So to make sure that inetd can call the rsh server,
 uncomment the line
 	shell stream tcp ... in.rshd
-in the file /etc/inetd.conf or a similar file on your system.  You need to
-restart inetd before this change comes into effect.
+in the file /etc/inetd.conf or a similar file on your system (note that you need
+to restart inetd before this change comes into effect)
 
 On some systems inetd may have been replaced by xinetd.
 
@@ -96,8 +100,8 @@ example:
 now I can run dsh:
 	mtp22@front_end $ dsh -w node1, node2 date
 	executing 'date'
-	node 1:     Thu Jul 5 13:31:29 EDT 2001
-	node 2:     Thu Jul 5 13:31:29 EDT 2001
+	node1:      Thu Jul 5 13:31:29 EDT 2001
+	node2:      Thu Jul 5 13:31:29 EDT 2001
 
 This works fine in a closed computing environment. For example, a beowulf
 cluster where there is a front end connected to the outside world but none
@@ -114,7 +118,7 @@ V. CONFIGURING SSH
 
 The following instructions apply to OpenSSH v2.0 or later.
 
-Scenario:  I want to run dsh on a computer called front_end to execute a command
+Scenario: I want to run dsh on a computer called front_end to execute a command
 on a computer called node1 and a computer called node2:
 
 1.) create a personal ssh key on front_end:
@@ -138,7 +142,35 @@ id_dsa.pub           100% |*****************************|   617       00:00
 
 Now you should be able to ssh to node1 and node2 from front_end without entering
 a password, yet it is still secure provided noone can read your private 
-key (~/.ssh/id_dsa)
+key (~/.ssh/id_dsa).
+
+3.) now I can run dsh:
+	mtp22@front_end $ dsh -w node1, node2 date
+	executing 'date'
+	node1:      Thu Jul 5 13:31:29 EDT 2001
+	node2:      Thu Jul 5 13:31:29 EDT 2001
+
+The first time that you run this command, you'll probably see:
+
+node1: The authenticity of host 'node1 (10.10.10.1)' can't be established.
+node1: RSA key fingerprint is 46:2f:60:cd:05:b7:04:b6:c0:89:1a:f2:68:e9:97:4c.
+
+And dsh will hang.  It is actually waiting for you to answer the question:
+Are you sure you want to continue connecting (yes/no)? Please type 'yes' or 'no'.
+
+So if you type yes, dsh should continue and execute properly.
+
+This same message will appear for each node.
+
+My recommendation is to set up the ALL file (see README) with all the nodes
+where you'd like to execute commands, and run 'dsh -a date'.  This will
+prompt you for each node, so you'll have to type yes for each node, but once
+you do this, any subsequent times that you run dsh, ssh won't display this
+message. In fact, after you do this, you should be able to type 'dsh -a date' 
+again and it shouldn't hang at all.
+
+
+
 
 
 
