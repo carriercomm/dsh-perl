@@ -156,7 +156,7 @@ node1: The authenticity of host 'node1 (10.10.10.1)' can't be established.
 node1: RSA key fingerprint is 46:2f:60:cd:05:b7:04:b6:c0:89:1a:f2:68:e9:97:4c.
 
 And dsh will hang.  It is actually waiting for you to answer the question:
-Are you sure you want to continue connecting (yes/no)? Please type 'yes' or 'no'.
+Are you sure you want to continue connecting (yes/no)? 
 
 So if you type yes, dsh should continue and execute properly.
 
