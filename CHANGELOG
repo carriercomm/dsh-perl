@@ -1,3 +1,10 @@
+Jul 26 2001 dsh.1 mtp : changed documentation to reflect the fact that
+	                Term-ReadLine-Gnu is now optional, changed some wording
+
+Jul 26 2001 configure mtp : changed some printing aesthetics
+
+Jul 26 2001 INSTALL mtp : changed some wording
+
 Jul 26 2001 dsh.pl mtp : added a more detailed discussion of Term-ReadLine
 	                 vs. Term-ReadLine-Gnu
 
