@@ -29,8 +29,8 @@ see the file INSTALL in the Term-ReadLine-Gnu-x.xx directory.
 Note that if you are not running Linux, you will probably need to install
 the GNU readline library first.  The GNU readline library can be found on
 the dsh website (http://dsh.sourceforge.net).  See 
-README_<your operating system> for special notes regarding your operating 
-system.
+README_<your operating system> for special notes regarding installing 
+Term-Readline-Gnu on your operating system.
 
 III. DSH INSTALLATION
 
