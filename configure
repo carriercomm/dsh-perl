@@ -127,11 +127,12 @@ unless ($no_readline) {
      MODULE: foreach my $lib_directory(@INC) {
 	       if (-e "$lib_directory/Term/ReadLine/Gnu.pm") {
 	           $readline_directory = $lib_directory;
-	           last MODULES;
+	           last MODULE;
 	       }
      }
    }
-   if (-e "$readline_directory/Term/ReadLine/Gnu.pm") {
+   if (defined($readline_directory) and
+       -e "$readline_directory/Term/ReadLine/Gnu.pm") {
       print "\'$readline_directory/Term/ReadLine/Gnu.pm\'\n";
    }
    else {
