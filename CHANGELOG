@@ -1,3 +1,9 @@
+v2.0.1 Jan 14 2002 mtp
+fixed my email address on the manpage
+(hey, noone sent me a message telling me it was wrong :-P)
+
+installation bug fixes
+
 v2.0.0 Aug 01 2001 mtp
 
 added parallel execution of the command 
