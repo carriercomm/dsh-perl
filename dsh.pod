@@ -93,7 +93,7 @@ lines that have only whitespace are ignored.
 
 I<example:>
 
-	  mtp22@front_end $ cat /util/beowulf/node_groups/ALL
+	  mtp22@front_end $ cat /usr/local/dsh/node_groups/ALL
 
 	  front_end
 	  # Linux nodes
@@ -126,7 +126,7 @@ whitespace are ignored.
 
 I<example:>
 
-	  mtp22@front_end $ cat /util/beowulf/node_groups/linux
+	  mtp22@front_end $ cat /usr/local/dsh/node_groups/linux
 
 	  # Linux part of the cluster, running Slackware 8.0
 	  linux1
@@ -134,7 +134,7 @@ I<example:>
 	  penguin1
 	  penguin2
 
-	  mtp22@front_end $ cat /util/beowulf/node_groups/openbsd
+	  mtp22@front_end $ cat /usr/local/dsh/node_groups/openbsd
 
 	  # OpenBSD part of the cluster, running OpenBSD 2.9
 	  openbsd1
@@ -291,7 +291,7 @@ This is the directory that B<dsh> uses to search for node groups
 switch).  Note that whatever directory is specified in the variable
 BEOWULF_ROOT must have a subdirectory called node_groups where the
 various nodegroup files and the ALL file are located. 
-The default value of BEOWULF_ROOT is /util/beowulf
+The default value of BEOWULF_ROOT is /usr/local/dsh
 
 =head2 FANOUT
 

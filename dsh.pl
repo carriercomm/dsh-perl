@@ -74,7 +74,7 @@ my $RSH_CMD = "/usr/bin/rsh";
 # my $RSH_CMD = "/usr/bin/ssh -p 91")
 my $RSH_CMD_PORT = getservbyname("shell", "tcp") || "514";
 # directory where the "node_groups" folder is located
-my $BEOWULF_ROOT = $ENV{BEOWULF_ROOT} || "/util/beowulf";
+my $BEOWULF_ROOT = $ENV{BEOWULF_ROOT} || "/usr/local/dsh";
 # name of file containing all nodes; located in $BEOWULF_ROOT/node_groups/
 my $ALL_NODES = "ALL";
 # number of nodes to process in parallel (this is approximately 1/3 of the 

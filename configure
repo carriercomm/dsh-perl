@@ -47,7 +47,7 @@ my $use_ssh = undef;
 # in the PATH variable above
 my $ssh_location = undef;
 # the directory where the node_groups folder is located
-my $beowulf_root = '/util/beowulf';
+my $beowulf_root = '/usr/local/dsh';
 # whether or not to create the node_groups directory in $beowulf_root;
 # default is yes, create the node_groups directory
 my $dont_create_node_groups_dir = '0';
@@ -558,7 +558,7 @@ Options: [defaults are printed in  brackets after the descriptions]
 	                          if the node_groups directory hasn't been
                                   created already, the location to put the
                                   node_groups directory
-                                  [/util/beowulf]
+                                  [/usr/local/dsh]
     --dont-create-node-groups-dir specifies to not create the node_groups
                                   directory [create the node_groups directory
                                   in BEOWULF_DIR]

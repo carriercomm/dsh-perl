@@ -63,7 +63,7 @@ SPECIFYING NODES
 
         *example:*
 
-                  mtp22@front_end $ cat /util/beowulf/node_groups/ALL
+                  mtp22@front_end $ cat /usr/local/dsh/node_groups/ALL
 
                   front_end
                   # Linux nodes
@@ -94,7 +94,7 @@ SPECIFYING NODES
 
         *example:*
 
-                  mtp22@front_end $ cat /util/beowulf/node_groups/linux
+                  mtp22@front_end $ cat /usr/local/dsh/node_groups/linux
 
                   # Linux part of the cluster, running Slackware 8.0
                   linux1
@@ -102,7 +102,7 @@ SPECIFYING NODES
                   penguin1
                   penguin2
 
-                  mtp22@front_end $ cat /util/beowulf/node_groups/openbsd
+                  mtp22@front_end $ cat /usr/local/dsh/node_groups/openbsd
 
                   # OpenBSD part of the cluster, running OpenBSD 2.9
                   openbsd1
@@ -253,7 +253,7 @@ ENVIRONMENT VARIABLES
     Note that whatever directory is specified in the variable BEOWULF_ROOT
     must have a subdirectory called node_groups where the various nodegroup
     files and the ALL file are located. The default value of BEOWULF_ROOT is
-    /util/beowulf
+    /usr/local/dsh
 
   FANOUT
 
