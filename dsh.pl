@@ -297,7 +297,7 @@ sub check_that_we_can_rsh_to_nodes {
     }
     # exit if there are no nodes to work with
     if (@nodes == 0) {
-	print STDERR "$0: Can't reach any nodes. Exiting...\n";
+	print STDERR "$0: Can't reach any of the specified nodes. Exiting...\n";
 	exit(1);
     }
 }
