@@ -4,10 +4,10 @@ Perl, version 5.005_03 or later.  The latest version of Perl can be found at
 http://www.perl.com/CPAN/src/stable.tar.gz
 
 Term-ReadLine-Gnu Perl module, version 1.08 or later.  This module is not part
-of the standard distribution of Perl but is included with dsh. You probably
-need to install this; see below for details.  The newest version of
-Term-ReadLine-Gnu can be found at 
-http://www.perl.com/CPAN-local/modules/by-module/Term/
+of the standard distribution of Perl, so you will probably need to install this;
+see below for details.  Term-ReadLine-Gnu can be found on the dsh website
+(http://dsh.sourceforge.net).  The newest version of Term-ReadLine-Gnu can be 
+found at http://www.perl.com/CPAN-local/modules/by-module/Term/
 
 Properly configured rsh (see CONFIGURING RSH below) or ssh (see CONFIGURING SSH
 below).  ssh can be found at http://www.openssh.org
@@ -24,7 +24,13 @@ make
 make install
 
 For a more detailed description of installing the Term-Readline-Gnu Perl module,
-see the file INSTALL in the Term-ReadLine-Gnu-x.xx directory
+see the file INSTALL in the Term-ReadLine-Gnu-x.xx directory.
+
+Note that if you are not running Linux, you will probably need to install
+the GNU readline library first.  The GNU readline library can be found on
+the dsh website (http://dsh.sourceforge.net).  See 
+README_<your operating system> for special notes regarding your operating 
+system.
 
 III. DSH INSTALLATION
 
