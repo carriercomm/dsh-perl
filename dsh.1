@@ -93,9 +93,10 @@ So, in short, commands typed at the
 prompt are executed as if for each node you typed 
 .Pa rsh [remote computer] '[command you enter]' , 
 where the command you enter is
-placed in single quotes.  The 
+placed in single quotes.  If you chose to add support for the
+Term-ReadLine-Gnu Perl module during installation, then the 
 .Nm
-prompt does have command recall (up and down arrows) and editing 
+prompt has command recall (up and down arrows) and editing 
 (as featured in the GNU readline library).  Also, a local command 
 can be executed by placing an exclamation point (!) in front 
 of the command (e.g.
@@ -188,8 +189,8 @@ This will run the command ls on 10.10.10.1, 10.10.10.2, and 10.10.10.3
 If none of the above switches (-a, -N, -w) is specified, dsh defaults
 to adding the nodes specified in the file pointed to by WCOLL.
 .Nm
-only looks at this environment variable when none of the 3 switches is
-specified.
+only looks at this environment variable when none of the 3 switches
+described above is specified.
 
 .Pa example:
 .nf
@@ -330,7 +331,7 @@ uses to search for node groups
 (specified with the -N switch) and the ALL file (specified with the -a
 switch).  Note that whatever directory is specified in the variable
 BEOWULF_ROOT must have a subdirectory called node_groups where the
-nodegroup files and the ALL file are located.  
+various nodegroup files and the ALL file are located.  
 .br The default value of BEOWULF_ROOT is /util/beowulf
 .Ss FANOUT
 This is the number of nodes to run the command on in parallel.  The
@@ -354,7 +355,7 @@ See SPECIFYING NODE GROUPS
 Lists the nodes where dsh would execute the command without actually
 executing the command
 .It Fl e Ar 'command'
-Executes the command in quotes on all the nodes.  The reason for this
+Executes the command in quotes on all the specified nodes.  The reason for this
 switch is that putting the command to execute at the end of the
 command line without single quotes can lead to metacharacter issues
 (see 
@@ -402,7 +403,7 @@ local metacharacter interpretation is to use the -e switch:
 .Pa bash > bash.find' .
 I highly recommend using the -e switch to execute commands or running
 dsh in interactive mode because most modern shells have many 
-metacharacters and quoting these can be tricky even if you 
+metacharacters and quoting these can be tricky even if you do 
 recognize all of them.
 .Sh EXIT CODES
 If 
@@ -419,8 +420,8 @@ node.  Note that an exit code of 0 does not mean that every rsh was
 successful nor does it mean that the command exited with a code of 
 0 on the remote computer :-\\ . The way 
 .Nm
-executes the rsh command doesn't lend itself to
-capturing its exit code.  An exit code of 1 indicates
+executes rsh commands doesn't lend itself to
+capturing their exit codes.  An exit code of 1 indicates
 that 
 .Nm
 did not attempt to run the command on any remote computers 
