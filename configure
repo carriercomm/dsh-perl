@@ -37,9 +37,8 @@ use Getopt::Long;
 
 # path to search for executable files
 my @PATH = ('/usr/local/bin', '/usr/bin', '/bin');
-## directory to add to list of directories that Perl searches for modules;
-## used if Term::Readline::Gnu is in a non-standard location
-#my $directory_to_add_to_INC = undef;
+# decides whether dsh attempts to add support for Term-ReadLine-Gnu
+my $no_readline = undef;
 # full path of the perl executable
 my $perl_location = $Config{'perlpath'} || '/usr/bin/perl';
 # location of Term/Readline/Gnu.pm; default is to search the @INC
@@ -66,7 +65,8 @@ my $dont_create_node_groups_dir = '0';
 # in the PATH variable above
 my $cat_location = undef;
 
-GetOptions('perl-location=s' => \$perl_location,
+GetOptions('no-readline' => \$no_readline,
+	   'perl-location=s' => \$perl_location,
 	   'readline-directory=s' => \$readline_directory,
 	   'rsh-location=s' => \$rsh_location,
 	   'ssh-location=s' => \$ssh_location,
@@ -83,38 +83,43 @@ print "checking for Perl... ";
 # $perl_location already set up
 print "\'$perl_location\'\n";
 
-# search for the readline location unless the user already specified a location
-print "checking for Term::Readline::Gnu... ";
-if (defined($readline_directory)) {
-    # allow the user to specify the full path of the module, but the full path
-    # shouldn't be added to @INC, so truncate the path if necessary
-    $readline_directory =~ s/\/Term\/Readline\/?(Gnu\.pm)?$//;
-}
-else {
-    MODULE: foreach my $lib_directory(@INC) {
+# add support for Term-ReadLine-Gnu unless the user specified not to include
+# this support
+unless ($no_readline) {
+   # search for the readline location unless the user already specified one
+   print "checking for Term::Readline::Gnu... ";
+   if (defined($readline_directory)) {
+       # allow the user to specify the full path of the module, but the full 
+       # path shouldn't be added to @INC, so truncate the path if necessary
+       $readline_directory =~ s/\/Term\/Readline\/?(Gnu\.pm)?$//;
+   }
+   else {
+     MODULE: foreach my $lib_directory(@INC) {
 	       if (-e "$lib_directory/Term/Readline/Gnu.pm") {
 	           $readline_directory = $lib_directory;
 	           last MODULES;
 	       }
-    }
-    unless (defined($readline_directory)) {
-	print "not found.\n";
-	print "This Perl module was included with dsh, but is not installed.\n";
-	my $readline_filename = (glob("Term-ReadLine-Gnu-*.tar.gz"))[0];
-	unless ($readline_filename) {
-	    print "$0: can't find Term-ReadLine-Gnu-*.tar.gz in current " .
-		  "directory\n";
-	    print "Try unzipping and untarring dsh-*.tar.gz again, and if\n";
-	    print "that doesn't work, try downloading dsh-*.tar.gz from " .
-		  "dsh.sourceforge.net\n";
-	    exit(1);
-	}
-	print "\'$readline_filename\' contains this module;\n";
-	print "see INSTALL for instructions on installing it.\n";
+     }
+     unless (defined($readline_directory)) {
+	 print "not found.\n";
+	 print "The Term-ReadLine-Gnu Perl module is necessary for some " .
+	       "features of interactive\ndsh. ";  
+	 print "Term-ReadLine-Gnu can be found on the dsh website\n" .
+	       "(http://dsh.sourceforge.net). ";
+	 print "Information on installing this module can be found\n" .
+	       "in INSTALL. ";
+	 print "You can install dsh without Term-ReadLine-Gnu by specifying:\n".
+	       "mtp22\@front_end \$ perl configure --no-readline\n";
+	 print "dsh without Term-ReadLine-Gnu will work fine, however if you ".
+	       "enter interactive\ndsh ".
+	       "by not specifying a command on the command line, things like ".
+	       "backspace and \nthe home and end characters won't function as ".
+	       "you may expect.\n";
 	exit(1);
-    }
+     }
+   }
+   print "\'$readline_directory\'\n";
 }
-print "\'$readline_directory\'\n";
 
 # determine where the rsh or ssh executable is located
 if ($use_ssh) {
@@ -220,7 +225,10 @@ close(FILE_IN);
 open(FILE_OUT, "> dsh.part2")
     or die "$0: can't create file \'dsh.part2\': $!";
 
-print FILE_OUT "use lib \"$readline_directory\";\n";
+unless (defined($no_readline)) {
+    print FILE_OUT "use lib \"$readline_directory\";\n";
+}
+
 print FILE_OUT <<'DSH_PART2_A';
 
 # developer's note: if anything from here to the line of all #'s is edited,
@@ -228,7 +236,13 @@ print FILE_OUT <<'DSH_PART2_A';
 
 use IO::Handle;
 use Socket;
-# requiring Term::ReadLine does not solve the problem of ^[[A
+# if Term-ReadLine-Gnu is not installed, this call will not generate
+# an error because the standard Perl distribution includes a Term-ReadLine
+# module, which is what this call refers to.  This module, Term-ReadLine, is 
+# mostly an interface to C readline libraries for other Perl modules (for 
+# example, Term-ReadLine-Gnu); it doesn't implement many of the ReadLine 
+# functions itself, but it does implement enough of these functions that 
+# calling Term::ReadLine->new doesn't fail if Term-ReadLine-Gnu is not installed
 use Term::ReadLine;
 
 # User Configuration #######################################################
@@ -400,6 +414,8 @@ Options: [defaults are printed in  brackets after the descriptions]
 	                          (e.g. '/bin/cat')
 				  [/usr/local/bin, /usr/bin, and /bin are
 				   searched (in that order)]
+    --no-readline                 specifies not to add support for
+	                          the Term-ReadLine-Gnu Perl module
     --readline-directory=DIR      location of Term/Readline/Gnu.pm
 	                          [the normal Perl module directories
 				   are searched]
