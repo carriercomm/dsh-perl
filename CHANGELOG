@@ -1,3 +1,11 @@
+
+
+Jul 30 2001 dsh.pod mtp : added this file (replaces dsh.1 as dsh manpage)
+
+Jul 30 2001 dsh.1 mtp : removed this file
+
+Jul 26 2001 TODO mtp : removed 'Term-Readline-GNU installation optional'
+
 Jul 26 2001 dsh.1 mtp : changed documentation to reflect the fact that
 	                Term-ReadLine-Gnu is now optional, changed some wording
 
