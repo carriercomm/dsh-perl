@@ -1,4 +1,7 @@
+Jul 26 2001 dsh.pl mtp : added a more detailed discussion of Term-ReadLine
+	                 vs. Term-ReadLine-Gnu
 
+Jul 26 2001 configure mtp : added the user option "--no-readline"
 
 Jul 26 2001 configure mtp : dsh.1.gz to dsh.1, dsh*.tar.gz to dsh-*.tar.gz,
 			    added backup port number in case getservbyname
