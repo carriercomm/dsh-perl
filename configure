@@ -104,8 +104,8 @@ else {
 	unless ($readline_filename) {
 	    print "$0: can't find Term-ReadLine-Gnu-*.tar.gz in current " .
 		  "directory\n";
-	    print "Try unzipping and untarring dsh*.tar.gz again, and if\n";
-	    print "that doesn't work, try downloading dsh*.tar.gz from " .
+	    print "Try unzipping and untarring dsh-*.tar.gz again, and if\n";
+	    print "that doesn't work, try downloading dsh-*.tar.gz from " .
 		  "dsh.sourceforge.net\n";
 	    exit(1);
 	}
@@ -253,10 +253,12 @@ print FILE_OUT <<'DSH_PART2_B';
 # my $RSH_CMD = "/usr/bin/ssh -p 91")
 DSH_PART2_B
 if ($use_ssh) {
-    print FILE_OUT qq(my \$RSH_CMD_PORT = getservbyname("ssh", "tcp");\n);
+    print FILE_OUT qq(my \$RSH_CMD_PORT = getservbyname("ssh", "tcp") ) .
+	           qq(|| "514";\n);
 }
 else {
-    print FILE_OUT qq(my \$RSH_CMD_PORT = getservbyname("shell", "tcp");\n);
+    print FILE_OUT qq(my \$RSH_CMD_PORT = getservbyname("shell", "tcp") ) .
+	           qq(|| "22";\n);
 }
 print FILE_OUT <<"DSH_PART2_C";
 # directory where the "node_groups" folder is located
@@ -322,7 +324,7 @@ use File::Path;
 print "\\n";
 print "This will install the following files in the following locations:\\n";
 print "dsh executable: $prefix/bin/dsh\\n";
-print "dsh man page:   $man_prefix/man1/dsh.1.gz\\n";
+print "dsh man page:   $man_prefix/man1/dsh.1\\n";
 
 unless ($dont_create_node_groups_dir) {
     print "And this will create the following directory:\\n";
@@ -347,8 +349,8 @@ chmod(0755, "$prefix/bin/dsh")
 print "dsh executable installed\\n";
 
 mkpath("$man_prefix/man1", 1, 0755);
-copy("./dsh.1.gz", "$man_prefix/man1/dsh.1.gz")
-   or die "\$0: couldn't copy dsh.1.gz to \'$man_prefix/man1\': \$!\\n" .
+copy("./dsh.1", "$man_prefix/man1/dsh.1")
+   or die "\$0: couldn't copy dsh.1 to \'$man_prefix/man1\': \$!\\n" .
           "Installation failed.\\n";
 print "dsh man page installed\\n";
 
@@ -360,7 +362,7 @@ unless ($dont_create_node_groups_dir) {
     }
 }
 
-print "Installation complete\\n";
+print "Installation complete.\\n";
 exit;
 INSTALL
 
@@ -379,7 +381,7 @@ Options: [defaults are printed in  brackets after the descriptions]
     --prefix=PREFIX               the dsh executable will be installed 
 	                          in PREFIX/bin/dsh [/usr/local]
     --man-prefix=MAN_PREFIX       the dsh man page will be installed
-	                          in MAN_PREFIX/man1/dsh.1.gz [PREFIX/man]
+	                          in MAN_PREFIX/man1/dsh.1 [PREFIX/man]
     --use-ssh                     picks ssh as the default way of communicating
 	                          with nodes [no by default, implying rsh]
     --ssh-location=SSH_LOCATION   the full path of the ssh executable
