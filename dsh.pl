@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-###############################################################################
+################################################################################
 # 
 # dsh - distributed shell
 #
@@ -43,7 +43,7 @@ use strict;
 #    -t switch, added the -f switch, fixed -h switch, reorganized the code, 
 #    and renamed some variables; also incorporated Dale's changes
 #    
-###############################################################################
+################################################################################
 
 # developer's note: if anything from here to the line of all #'s is edited,
 # this change should also be reflected in the configuration script
@@ -59,7 +59,7 @@ use Socket;
 # calling Term::ReadLine->new doesn't fail if Term-ReadLine-Gnu is not installed
 use Term::ReadLine;
 
-# User Configuration #######################################################
+# User Configuration ###########################################################
 # the command that is used to execute your command (the one you specify 
 # to dsh) on the nodes you specify to dsh (note: if you change this command,
 # for example, to ssh, you need to change the following variable also;
@@ -85,7 +85,7 @@ my $fanout = $ENV{FANOUT};
 # we can rsh to the node (note: this can also be set at the command line
 # with the -t switch)
 my $DEFAULT_TIMEOUT = 5;
-############################################################################
+################################################################################
 
 my ($cmd, $cmdStart, $group, $i, $justList, $longest_hostname_length, $node,
     $timeout, $force,

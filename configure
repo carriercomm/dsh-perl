@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-###############################################################################
+################################################################################
 # 
 # configure - dsh configuration script
 #
@@ -30,7 +30,7 @@ use strict;
 #
 # 07/23/2001 mtp : initial release
 #
-###############################################################################
+################################################################################
 
 use Config;
 use Getopt::Long;
@@ -310,10 +310,10 @@ unless ($no_manpage) {
   }
 }
 
-###############################################################################
+################################################################################
 # split the dsh executable into 3 parts, the header (which contains copyright
 # information, etc.), the configuration section, and the body
-###############################################################################
+################################################################################
 
 open(FILE_IN, "< dsh.pl");
 
@@ -352,10 +352,10 @@ close(FILE_OUT);
 
 close(FILE_IN);
 
-###############################################################################
+################################################################################
 # rewrite dsh configuration section (i.e. dsh.part2) based on the values we 
 # found earlier and user-specified values
-###############################################################################
+################################################################################
 
 open(FILE_OUT, "> dsh.part2")
     or die "$0: can't create file \'dsh.part2\': $!";
@@ -380,7 +380,7 @@ use Socket;
 # calling Term::ReadLine->new doesn't fail if Term-ReadLine-Gnu is not installed
 use Term::ReadLine;
 
-# User Configuration ##########################################################
+# User Configuration ###########################################################
 # the command that is used to execute your command (the one you specify 
 # to dsh) on the nodes you specify to dsh (note: if you change this command,
 # for example, to ssh, you need to change the following variable also;
@@ -422,14 +422,14 @@ my \$fanout = \$ENV{FANOUT};
 # we can rsh to the node (note: this can also be set at the command line
 # with the -t switch)
 my \$DEFAULT_TIMEOUT = 5;
-###############################################################################
+################################################################################
 DSH_PART2_C
 
 close(FILE_OUT);
 
-###############################################################################
+################################################################################
 # cat together the 3 parts of the dsh executable
-###############################################################################
+################################################################################
 
 if (system("$cat_location dsh.part1 dsh.part2 dsh.part3 > dsh") != 0) {
     exit(1);
@@ -438,9 +438,9 @@ if (system("$cat_location dsh.part1 dsh.part2 dsh.part3 > dsh") != 0) {
 chmod(0755, "./dsh")
    or die "$0: couldn't change the permissions of \`./dsh\`: $!\n";
 
-###############################################################################
+################################################################################
 # create the dsh manpage
-###############################################################################
+################################################################################
 unless ($no_manpage) {
     print "creating dsh manpage... ";
     my $command = "$pod2man_location dsh.pod --section=1 --release=".
@@ -451,9 +451,9 @@ unless ($no_manpage) {
     print "complete\n";
 }
 
-###############################################################################
+################################################################################
 # write an install script based on configuration
-###############################################################################
+################################################################################
 
 print "creating install script... ";
 open(INSTALL_SCRIPT, "> install")
@@ -462,7 +462,7 @@ open(INSTALL_SCRIPT, "> install")
 print INSTALL_SCRIPT << "INSTALL";
 #!$perl_location
 
-###############################################################################
+################################################################################
 # Copyright (c) 2001 State University of New York at Buffalo
 #
 # This program is free software; you can redistribute it and/or modify
@@ -478,7 +478,7 @@ print INSTALL_SCRIPT << "INSTALL";
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-###############################################################################
+################################################################################
 
 use File::Copy;
 use File::Path;
