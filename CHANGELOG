@@ -1,35 +1,33 @@
+v2.0.0 Aug 01 2001 mtp
+
+added parallel execution of the command 
+(now dsh is a lot faster) 
+
+added a configuration script
+(makes dsh installation a lot easier and makes dsh more portable)
+
+wrote a manpage from scratch
+(includes the many new features of version 2.0 and there are lots of examples--
+ I like examples)
+
+added verification of the status of the nodes before execution of the command
+(hey, sometimes nodes go down, and it's helpful to be notified of this before
+you try to run a command on these nodes)
+
+based the removal of duplicate nodes on IP addresses instead of hostnames
+(different hostnames can refer to the same IP address)
+ 
+added standard error to the node output
+(I sure like to be notified of errors :-) )
+
+fixed the quoting of shell metacharacters
+(an important fix, see the -e switch in the manpage)
+
+fixed the formatting of the output when the names of nodes are different lengths
+(easier on the eyes)
+
+implemented fanout
+(not everyone has front end computers with tons of resources, see FANOUT in
+ the manpage)
 
 
-Jul 30 2001 dsh.pod mtp : added this file (replaces dsh.1 as dsh manpage)
-
-Jul 30 2001 dsh.1 mtp : removed this file
-
-Jul 26 2001 TODO mtp : removed 'Term-Readline-GNU installation optional'
-
-Jul 26 2001 dsh.1 mtp : changed documentation to reflect the fact that
-	                Term-ReadLine-Gnu is now optional, changed some wording
-
-Jul 26 2001 configure mtp : changed some printing aesthetics
-
-Jul 26 2001 INSTALL mtp : changed some wording
-
-Jul 26 2001 dsh.pl mtp : added a more detailed discussion of Term-ReadLine
-	                 vs. Term-ReadLine-Gnu
-
-Jul 26 2001 configure mtp : added the user option "--no-readline"
-
-Jul 26 2001 configure mtp : dsh.1.gz to dsh.1, dsh*.tar.gz to dsh-*.tar.gz,
-			    added backup port number in case getservbyname
-	                    doesn't work
-
-Jul 26 2001 TODO mtp : added this file
-
-Jul 26 2001 README_SOLARIS mtp : added this file
-
-Jul 26 2001 README_AIX mtp : added this file
-
-Jul 26 2001 INSTALL mtp : referenced website, added GNU readline library info,
-			  removed statement that Term-ReadLine-Gnu is included
-			  with dsh
-
-Jul 26 2001 CHANGELOG mtp : started this file
