@@ -1,3 +1,17 @@
 
 
+Jul 26 2001 configure mtp : dsh.1.gz to dsh.1, dsh*.tar.gz to dsh-*.tar.gz,
+			    added backup port number in case getservbyname
+	                    doesn't work
+
+Jul 26 2001 TODO mtp : added this file
+
+Jul 26 2001 README_SOLARIS mtp : added this file
+
+Jul 26 2001 README_AIX mtp : added this file
+
+Jul 26 2001 INSTALL mtp : referenced website, added GNU readline library info,
+			  removed statement that Term-ReadLine-Gnu is included
+			  with dsh
+
 Jul 26 2001 CHANGELOG mtp : started this file
