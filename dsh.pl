@@ -50,7 +50,13 @@ use strict;
 
 use IO::Handle;
 use Socket;
-# requiring Term::ReadLine does not solve the problem of ^[[A
+# if Term-ReadLine-Gnu is not installed, this call will not generate
+# an error because the standard Perl distribution includes a Term-ReadLine
+# module, which is what this call refers to.  This module, Term-ReadLine, is 
+# mostly an interface to C readline libraries for other Perl modules (for 
+# example, Term-ReadLine-Gnu); it doesn't implement many of the ReadLine 
+# functions itself, but it does implement enough of these functions that 
+# calling Term::ReadLine->new doesn't fail if Term-ReadLine-Gnu is not installed
 use Term::ReadLine;
 
 # User Configuration #######################################################
