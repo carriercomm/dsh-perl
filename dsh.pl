@@ -475,18 +475,59 @@ sub run_cmd_in_parallel {
 	  }
       }
     }
+
     # print node output to the screen in the same order as the @nodes array 
     foreach $node (@nodes[$starting_node..$ending_node]) {
 	my $print_padding = 
 	    " " x ($longest_hostname_length - $hostname_length{$node});
+
 	# dereference hash before reading from file handle
 	my $NODE_OUTPUT = $NODE_OUTPUT{$node};
+
+        my @not_banner = suppress_common_banner($NODE_OUTPUT);
+        print "$node:$print_padding \t", $_
+            for @not_banner;
+
 	while (<$NODE_OUTPUT>) {
 	    print "$node:$print_padding \t", $_;
 	}
 	close($NODE_OUTPUT);
     }
   }
+}
+
+sub suppress_common_banner {
+    my $node_output = shift;
+    my $common_banner = "$BEOWULF_ROOT/banner";
+    my @banner;
+
+    return unless -r $common_banner;
+
+    open my $fh, '<', $common_banner
+        or die "Can't open $common_banner: $!";
+    @banner = <$fh>;
+    close $fh
+        or die "Error closing $common_banner: $!";
+
+    my @read;
+    while (my $banner_line = shift @banner) {
+        my $output = <$node_output>;
+        unless (defined $output) {
+            # bail out if we read past eof() and still have banner lines left
+            return @read;
+        }
+        push @read, $output;
+
+        for ($output, $banner_line) {
+            chomp;      # line endings don't matter
+            s/^\s+$//;  # lines of all whitespace are equal
+            s/\s+$//;   # trailing whitespace doesn't matter
+        }
+        if ($output ne $banner_line) {
+            return @read;
+        }
+    }
+    return;
 }
 
 sub usage {
