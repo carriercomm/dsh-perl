@@ -451,6 +451,7 @@ sub run_cmd_in_parallel {
   select STDERR;
   $| = 1;
   $| = 0;
+  select STDOUT;
   for (my $starting_node = 0; 
        $starting_node < $total_number_of_nodes; 
        $starting_node += $fanout) {
