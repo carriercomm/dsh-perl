@@ -204,12 +204,6 @@ sub process_remaining_args {
     $cmdStart = $i;
     push @cmd, @ARGV[$cmdStart..$#ARGV];
     $cmd ||= join(" ", @cmd);  # command could already be defined by -e switch
-
-    # quote the remaining arguments so that they are not interpretted again
-    # by the local shell
-    # (note:  this will also quote the command specified by the -e switch,
-    #         if that switch was used)
-    $cmd = "\'" . $cmd . "\'";
 }
 
 sub check_that_there_are_node_groups_or_nodes_to_work_with {
@@ -367,7 +361,7 @@ sub process_command {
       exit(0);
     }
 
-    if ($cmd && ($cmd ne '\'\'')) {
+    if ($cmd && (length $cmd)) {
 	&run_cmd_in_parallel();
     }
     else {
@@ -410,7 +404,6 @@ INTERACTIVE_DSH
 	    exit;
 	}
 	else {
-	  $cmd = "\'" . $cmd . "\'";
 	  &run_cmd_in_parallel();
 	}
       }
@@ -464,7 +457,7 @@ sub run_cmd_in_parallel {
 	  $NODE_OUTPUT{$node} = new IO::Handle;
 	  if ($pid{$node} = open($NODE_OUTPUT{$node}, "-|")) {}
 	  elsif (defined $pid{$node}) {
-	      exec "$RSH_CMD $ip_addresses{$node} $cmd 2>&1" 
+	      exec($RSH_CMD, $ip_addresses{$node}, "$cmd 2>&1")
 		  # note: 2>&1 merges standard error with standard output
 		  or print "couldn't $RSH_CMD to this node: $!\n"
 		      and exit;
