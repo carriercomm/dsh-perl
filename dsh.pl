@@ -457,8 +457,8 @@ sub run_cmd_in_parallel {
 	  $NODE_OUTPUT{$node} = new IO::Handle;
 	  if ($pid{$node} = open($NODE_OUTPUT{$node}, "-|")) {}
 	  elsif (defined $pid{$node}) {
-	      exec($RSH_CMD, $ip_addresses{$node}, "$cmd 2>&1")
-		  # note: 2>&1 merges standard error with standard output
+	      open STDERR, ">&STDOUT";
+	      exec($RSH_CMD, $ip_addresses{$node}, $cmd)
 		  or print "couldn't $RSH_CMD to this node: $!\n"
 		      and exit;
 	  }
